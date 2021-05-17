@@ -7,11 +7,80 @@
 	"item": [
 		{
 			"name": "Agify",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var jsonDataAgify;\r",
+							"var jsonDataGenderize;\r",
+							"pm.test(\"Validating Age\", function () {\r",
+							"jsonDataAgify= JSON.parse(responseBody);\r",
+							"for(var i=0;i<jsonDataAgify.length;i++){\r",
+							" if(jsonDataAgify[i].age>40){\r",
+							"        pm.sendRequest(pm.collectionVariables.get(\"GenderizeEndURL\")+\"?name=\"+jsonDataAgify[i].name, function (err, response) {\r",
+							"           \r",
+							"            jsonDataGenderize=response.json();     \r",
+							"       \r",
+							"            if(jsonDataGenderize.gender=\"Male\" && jsonDataGenderize.probability>0.90){\r",
+							"                let d = new Date();\r",
+							"                let timestamp = d.getTime();\r",
+							"                let timestamp1 = Math.round(new Date().getTime() / 1000);\r",
+							"                console.log(\"TimeStamp:::\"+timestamp1+\" Seconds\");\r",
+							"                console.log(\"Name:::\"+jsonDataGenderize.name)\r",
+							"                console.log(\"Count:::\"+jsonDataGenderize.count)\r",
+							"            }\r",
+							"            else if(jsonDataGenderize.gender=\"Female\"){\r",
+							"                 console.log(\"Name:::\"+jsonDataGenderize.name)\r",
+							"                  console.log(\"Name:::\"+jsonDataGenderize.probability)\r",
+							"            }\r",
+							"            });\r",
+							"   \r",
+							"}\r",
+							"else\r",
+							"{\r",
+							"console.log(\"Person is younger than 40\");\r",
+							"console.log(jsonDataAgify);\r",
+							"         \r",
+							"}\r",
+							"}\r",
+							"\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "javascript"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "{{AgifyEndURL}}?name={{Name}}",
+					"host": [
+						"{{AgifyEndURL}}"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{Name}}"
+						}
+					]
 				}
 			},
 			"response": []
