@@ -35,7 +35,7 @@
 							"            }\r",
 							"            else if(jsonDataGenderize.gender=\"Female\"){\r",
 							"                 console.log(\"Name:::\"+jsonDataGenderize.name)\r",
-							"                  console.log(\"Name:::\"+jsonDataGenderize.probability)\r",
+							"                  console.log(\"Probability:::\"+jsonDataGenderize.probability)\r",
 							"            }\r",
 							"            });\r",
 							"   \r",
@@ -43,7 +43,9 @@
 							"else\r",
 							"{\r",
 							"console.log(\"Person is younger than 40\");\r",
-							"console.log(jsonDataAgify);\r",
+							"console.log(jsonDataAgify[i].name);\r",
+							"console.log(jsonDataAgify[i].age);\r",
+							"console.log(jsonDataAgify[i].count);\r",
 							"         \r",
 							"}\r",
 							"}\r",
@@ -71,14 +73,34 @@
 					}
 				},
 				"url": {
-					"raw": "{{AgifyEndURL}}?name={{Name}}",
+					"raw": "{{AgifyEndURL}}?name=Jaanus&name=Michael&name=Anna&name=Jorpa&name=Urr&name=Justine",
 					"host": [
 						"{{AgifyEndURL}}"
 					],
 					"query": [
 						{
 							"key": "name",
-							"value": "{{Name}}"
+							"value": "Jaanus"
+						},
+						{
+							"key": "name",
+							"value": "Michael"
+						},
+						{
+							"key": "name",
+							"value": "Anna"
+						},
+						{
+							"key": "name",
+							"value": "Jorpa"
+						},
+						{
+							"key": "name",
+							"value": "Urr"
+						},
+						{
+							"key": "name",
+							"value": "Justine"
 						}
 					]
 				}
